@@ -1,0 +1,20 @@
+[CRITICAL] <Mensaje de CRITICAL>
+[DEBUG] <Mensaje de DEBUG>
+[INFO] <Mensaje de INFO>
+[WARNING] <Mensaje de WARNING>
+[ERROR] <Mensaje de ERROR>
+[CRITICAL] <Mensaje de CRITICAL>
+[DEBUG] <Mensaje de DEBUG>
+[INFO] <Mensaje de INFO>
+[WARNING] <Mensaje de WARNING>
+[ERROR] <Mensaje de ERROR>
+[CRITICAL] <Mensaje de CRITICAL>
+[DEBUG] <Mensaje de DEBUG>
+[INFO] <Mensaje de INFO>
+[WARNING] <Mensaje de WARNING>
+[ERROR] <Mensaje de ERROR>
+[CRITICAL] <Mensaje de CRITICAL>
+[ERROR] <Mensaje error> en Archivo defectuoso:125
+[SECURITY] <Access Granted> usuario: aleorozco
+[SECURITY] <Access Denied> usuario: aleorozcol
+[ERROR] <Error en tiempo de ejecución> en ejercicio2.cpp:99
