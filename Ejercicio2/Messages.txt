@@ -1,9 +1,4 @@
-[INFO] <Mensaje de DEBUG>
-[WARNING] <Mensaje de INFO>
-[ERROR] <Mensaje de WARNING>
-[CRITICAL] <Mensaje de ERROR>
-[UNKNOWN] <Mensaje de CRITICAL>
-[ERROR] <Mensaje error> en Archivo defectuoso:125
-[SECURITY] <Access Granted> usuario: aleorozco
-[SECURITY] <Access Denied> usuario: aleorozcol
-[ERROR] <Error en tiempo de ejecución> en ejercicio2.cpp:103
+[CRITICAL] <hubo un error en la sintaxis>
+[ERROR] <este es el error en realidad> en ejercicio2:366
+[SECURITY] <access denied> usuario: aleorozcol
+[ERROR] <Error en tiempo de ejecución> en ejercicio2.cpp:134

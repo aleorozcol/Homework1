@@ -2,7 +2,9 @@
 #include <fstream>
 
 using namespace std;
-enum NivelSveridad {DEBUG, INFO, WARNING, ERROR, CRITICAL};
+
+//Enumeramos la etiquetas para representar los niveles de severidad
+enum NivelSeveridad {DEBUG, INFO, WARNING, ERROR, CRITICAL};
 /*
 2. En muchos sistemas, es importante registrar todo lo que sucede mientras están en
 funcionamiento. Para ello, se utiliza un sistema de log que almacena los eventos
@@ -20,26 +22,29 @@ mencionadas. El formato esperado en una línea del archivo de log es el siguient
 etc.
 Verifique su funcionamiento con al menos una entrada de cada tipo.
 */
+
+//Función para registrar mensajes segun el nivel de severidad
 void logMessage(const string& mensaje, int NivelSeveridad){
-    ofstream outFile("Messages.txt", ios::app);
+    //Abrimos el archivo en el cual queremos guardar todos los mensajes
+    ofstream outFile("Messages.txt", ios::app); // ios::app se usa para no sobrescribir en mensajes anteriores
     if (outFile.is_open()){
         switch(NivelSeveridad){
-            case DEBUG:
+            case NivelSeveridad::DEBUG:
                 outFile << "[DEBUG] <" << mensaje << ">\n"; break;
-            case INFO:
+            case NivelSeveridad::INFO:
                 outFile << "[INFO] <" << mensaje << ">\n"; break;               
-            case WARNING:
+            case NivelSeveridad::WARNING:
                 outFile << "[WARNING] <" << mensaje << ">\n"; break;
-            case ERROR:             
+            case NivelSeveridad::ERROR:             
                 outFile << "[ERROR] <" << mensaje << ">\n"; break;
-            case CRITICAL: 
+            case NivelSeveridad::CRITICAL: 
                 outFile << "[CRITICAL] <" << mensaje << ">\n"; break;
             default:
                 outFile << "[UNKNOWN] <" << mensaje << ">\n"; break;
         }
-        outFile.close();
+        outFile.close(); // cerramos el arhivo
     } else {
-        cout << "No se pudo abrir el archivo.\n";
+        cout << "No se pudo abrir el archivo.\n"; //error
     }
     return;
 }
@@ -63,6 +68,8 @@ requerida y que además demuestre que puede capturar un error en runtime,
 crear una entrada en el log y después detener la ejecución del programa y salir
 del mismo con un código de error (return 1).
 */
+
+// Función para registrar errores (sobrecarga)
 void logMessage(const string& mensaje, const string& archivo, int linea){
     ofstream outFile("Messages.txt", ios::app);
     if (outFile.is_open()){
@@ -73,6 +80,7 @@ void logMessage(const string& mensaje, const string& archivo, int linea){
     }
 }
 
+//Función para registrar accesos (sobrecarga)
 void logMessage(const string& mensaje, const string& usuario){
     ofstream outFile("Messages.txt", ios::app);
     if (outFile.is_open()){
@@ -84,24 +92,47 @@ void logMessage(const string& mensaje, const string& usuario){
 }
 
 int main(){
-    ofstream outFile("Messages.txt", ios::trunc);
+
+    ofstream outFile("Messages.txt", ios::trunc); // ios::trunc borra el contenido anterior
     outFile.close();
 
-    logMessage("Mensaje de DEBUG", 1);
-    logMessage("Mensaje de INFO", 2);
-    logMessage("Mensaje de WARNING", 3);
-    logMessage("Mensaje de ERROR", 4);
-    logMessage("Mensaje de CRITICAL", 5);
+    cout << "Ingrese el nivel de severidad del mensaje (número):\n";
+    cout << "1. DEBUG\n2. INFO\n3. WARNING\n4. ERROR\n5. CRITICAL\n";
+    int nivel;
+    cin >> nivel;
+    cin.ignore(); // Limpiamos el buffer
+    cout << "Ingrese el mensaje:\n";
+    string mensaje;
+    getline(cin, mensaje); // Para poder ingresar mensajes con espacios
+    logMessage(mensaje, nivel - 1); // enum empieza en 0, asi que restamos 1
 
-    logMessage("Mensaje error", "Archivo defectuoso", 125);
-    logMessage("Access Granted", "aleorozco");
-    logMessage("Access Denied", "aleorozcol");
+    cout << "Hay problemas con el archivo, por favor ingrese el mensaje de error:\n";
+    string error;
+    getline(cin, error);
+    cout << "Ingrese el nombre del archivo:\n";
+    string archivo;
+    cin >> archivo;
+    cout << "Ingrese la línea de código:\n";    
+    int linea;  
+    cin >> linea;
+    cin.ignore();
+    logMessage(error, archivo, linea);
+
+    cout << "Ingrese el mensaje de acceso:\n";
+    string acceso;  
+    getline(cin, acceso);
+    cout << "Ingrese el nombre de usuario:\n";
+    string usuario;
+    getline(cin, usuario);
+    logMessage(acceso, usuario);
 
     try {
+        // Lanzamos una excepción para simular un error en tiempo de ejecución
         throw runtime_error("Error en tiempo de ejecución");
     } catch (const runtime_error& e) {
+        //Registramos el error
         logMessage(e.what(), __FILE__, __LINE__);
-        return 1;
+        return 1; // Salimos del programa con un código de error
     }
     return 0;    
 }
