@@ -42,13 +42,13 @@ void push_back(int value){
     auto new_node =create_node(value);
     if (!head) {
         head = new_node;
-    } else {
-        auto current = head;
-        while (current->next){
-            current = current->next;
-        }
-        current->next = new_node;
+        return;
     }
+    auto current = head;
+    while (current->next){
+        current = current->next;
+    }
+    current->next = new_node;
 }
 
 void insert(int value, int pos) {
