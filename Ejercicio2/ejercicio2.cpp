@@ -4,7 +4,7 @@
 using namespace std;
 
 //Enumeramos la etiquetas para representar los niveles de severidad
-enum NivelSeveridad {DEBUG, INFO, WARNING, ERROR, CRITICAL};
+enum severity_level {DEBUG, INFO, WARNING, ERROR, CRITICAL};
 /*
 2. En muchos sistemas, es importante registrar todo lo que sucede mientras están en
 funcionamiento. Para ello, se utiliza un sistema de log que almacena los eventos
@@ -24,23 +24,23 @@ Verifique su funcionamiento con al menos una entrada de cada tipo.
 */
 
 //Función para registrar mensajes segun el nivel de severidad
-void logMessage(const string& mensaje, int NivelSeveridad){
+void logMessage(const string& message, int severity_level){
     //Abrimos el archivo en el cual queremos guardar todos los mensajes
     ofstream outFile("Messages.txt", ios::app); // ios::app se usa para no sobrescribir en mensajes anteriores
     if (outFile.is_open()){
-        switch(NivelSeveridad){
-            case NivelSeveridad::DEBUG:
-                outFile << "[DEBUG] <" << mensaje << ">\n"; break;
-            case NivelSeveridad::INFO:
-                outFile << "[INFO] <" << mensaje << ">\n"; break;               
-            case NivelSeveridad::WARNING:
-                outFile << "[WARNING] <" << mensaje << ">\n"; break;
-            case NivelSeveridad::ERROR:             
-                outFile << "[ERROR] <" << mensaje << ">\n"; break;
-            case NivelSeveridad::CRITICAL: 
-                outFile << "[CRITICAL] <" << mensaje << ">\n"; break;
+        switch(severity_level){
+            case severity_level::DEBUG:
+                outFile << "[DEBUG] <" << message << ">\n"; break;
+            case severity_level::INFO:
+                outFile << "[INFO] <" << message << ">\n"; break;               
+            case severity_level::WARNING:
+                outFile << "[WARNING] <" << message << ">\n"; break;
+            case severity_level::ERROR:             
+                outFile << "[ERROR] <" << message << ">\n"; break;
+            case severity_level::CRITICAL: 
+                outFile << "[CRITICAL] <" << message << ">\n"; break;
             default:
-                outFile << "[UNKNOWN] <" << mensaje << ">\n"; break;
+                outFile << "[UNKNOWN] <" << message << ">\n"; break;
         }
         outFile.close(); // cerramos el arhivo
     } else {
@@ -70,10 +70,10 @@ del mismo con un código de error (return 1).
 */
 
 // Función para registrar errores (sobrecarga)
-void logMessage(const string& mensaje, const string& archivo, int linea){
+void logMessage(const string& message, const string& file, int line){
     ofstream outFile("Messages.txt", ios::app);
     if (outFile.is_open()){
-        outFile << "[ERROR] <" << mensaje << "> en " << archivo << ":" << linea << "\n";
+        outFile << "[ERROR] <" << message << "> en " << file << ":" << line << "\n";
         outFile.close();
     } else {
         cout << "No se pudo abrir el archivo.\n";
@@ -81,10 +81,10 @@ void logMessage(const string& mensaje, const string& archivo, int linea){
 }
 
 //Función para registrar accesos (sobrecarga)
-void logMessage(const string& mensaje, const string& usuario){
+void logMessage(const string& message, const string& user){
     ofstream outFile("Messages.txt", ios::app);
     if (outFile.is_open()){
-        outFile << "[SECURITY] <" << mensaje << "> usuario: " << usuario << "\n";
+        outFile << "[SECURITY] <" << message << "> usuario: " << user << "\n";
         outFile.close();
     } else {
         cout << "No se pudo abrir el archivo.\n";
@@ -98,33 +98,33 @@ int main(){
 
     cout << "Ingrese el nivel de severidad del mensaje (número):\n";
     cout << "1. DEBUG\n2. INFO\n3. WARNING\n4. ERROR\n5. CRITICAL\n";
-    int nivel;
-    cin >> nivel;
+    int level;
+    cin >> level;
     cin.ignore(); // Limpiamos el buffer
     cout << "Ingrese el mensaje:\n";
-    string mensaje;
-    getline(cin, mensaje); // Para poder ingresar mensajes con espacios
-    logMessage(mensaje, nivel - 1); // enum empieza en 0, asi que restamos 1
+    string message;
+    getline(cin, message); // Para poder ingresar mensajes con espacios
+    logMessage(message, level - 1); // enum empieza en 0, asi que restamos 1
 
     cout << "Hay problemas con el archivo, por favor ingrese el mensaje de error:\n";
     string error;
     getline(cin, error);
     cout << "Ingrese el nombre del archivo:\n";
-    string archivo;
-    cin >> archivo;
+    string file;
+    cin >> file;
     cout << "Ingrese la línea de código:\n";    
-    int linea;  
-    cin >> linea;
+    int line;  
+    cin >> line;
     cin.ignore();
-    logMessage(error, archivo, linea);
+    logMessage(error, file, line);
 
     cout << "Ingrese el mensaje de acceso:\n";
-    string acceso;  
-    getline(cin, acceso);
+    string access;  
+    getline(cin, access);
     cout << "Ingrese el nombre de usuario:\n";
-    string usuario;
-    getline(cin, usuario);
-    logMessage(acceso, usuario);
+    string user;
+    getline(cin, user);
+    logMessage(access, user);
 
     try {
         // Lanzamos una excepción para simular un error en tiempo de ejecución
