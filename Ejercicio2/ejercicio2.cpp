@@ -2,7 +2,7 @@
 #include <fstream>
 
 using namespace std;
-///// enummm
+enum NivelSveridad {DEBUG, INFO, WARNING, ERROR, CRITICAL};
 /*
 2. En muchos sistemas, es importante registrar todo lo que sucede mientras están en
 funcionamiento. Para ello, se utiliza un sistema de log que almacena los eventos
@@ -24,15 +24,15 @@ void logMessage(const string& mensaje, int NivelSeveridad){
     ofstream outFile("Messages.txt", ios::app);
     if (outFile.is_open()){
         switch(NivelSeveridad){
-            case 1:
+            case DEBUG:
                 outFile << "[DEBUG] <" << mensaje << ">\n"; break;
-            case 2:
+            case INFO:
                 outFile << "[INFO] <" << mensaje << ">\n"; break;               
-            case 3:
+            case WARNING:
                 outFile << "[WARNING] <" << mensaje << ">\n"; break;
-            case 4:             
+            case ERROR:             
                 outFile << "[ERROR] <" << mensaje << ">\n"; break;
-            case 5: 
+            case CRITICAL: 
                 outFile << "[CRITICAL] <" << mensaje << ">\n"; break;
             default:
                 outFile << "[UNKNOWN] <" << mensaje << ">\n"; break;
@@ -84,6 +84,9 @@ void logMessage(const string& mensaje, const string& usuario){
 }
 
 int main(){
+    ofstream outFile("Messages.txt", ios::trunc);
+    outFile.close();
+
     logMessage("Mensaje de DEBUG", 1);
     logMessage("Mensaje de INFO", 2);
     logMessage("Mensaje de WARNING", 3);

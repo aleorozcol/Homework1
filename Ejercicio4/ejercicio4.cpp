@@ -7,6 +7,18 @@ a. Se requiere el código de una función recursiva que compare dos variables qu
 indique mediante una variable bool si son iguales (true si son iguales, false si no lo son). 
 Explique su elección entre los tipos string y char* (lea el siguiente item de este ejercicio 
 antes de elegir el tipo de variable) y demuestre la funcionalidad de su código con un texto de, al menos, 64 caracteres.
+*/
+constexpr bool compare_texts(const char* text1, const char* text2){
+    if (*text1 == '\0' && *text2 == '\0') return true;
+    if (*text1 != *text2) return false;
+    return compare_texts(text1+1, text2+1);
+}
+bool compare_texts_runtime(const char* text1, const char* text2){
+    if (*text1 == '\0' && *text2 == '\0') return true;
+    if (*text1 != *text2) return false;
+    return compare_texts_runtime(text1+1, text2+1);
+} 
+/*
 b. El componente high_resolution_clock de <chrono> permite calcular el tiempo de ejecución de un proceso al hacer:
 #include <chrono>
 …
