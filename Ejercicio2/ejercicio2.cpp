@@ -81,7 +81,7 @@ void logMessage(const string& message, const string& file, int line){
 }
 
 //Función para registrar accesos (sobrecarga)
-void logMessage(const string& message, const string& user){
+void logMessage(const string& message, const string& user){////access denied, access aproved
     ofstream outFile("Messages.txt", ios::app);
     if (outFile.is_open()){
         outFile << "[SECURITY] <" << message << "> usuario: " << user << "\n";
