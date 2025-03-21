@@ -173,4 +173,5 @@ int main(){
     print_list();
     erase(0);
     print_list();
+    return 0;
 }
