@@ -1,4 +1,0 @@
-[CRITICAL] <hubo un error en la sintaxis>
-[ERROR] <este es el error en realidad> en ejercicio2:366
-[SECURITY] <access denied> usuario: aleorozcol
-[ERROR] <Error en tiempo de ejecución> en ejercicio2.cpp:134
