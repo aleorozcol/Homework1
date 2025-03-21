@@ -17,11 +17,11 @@ bool compare_texts (string text1, string text2, size_t index = 0){
     return compare_texts(text1, text2, index + 1);
 }
 
-bool compare_texts (const char* text1, const char* text2, size_t index = 0){
-    if (text1[index] == '\0' && text2[index] == '\0') return true;
-    if (text1[index] != text2[index]) return false;
-    return compare_texts(text1, text2, index+1);
-}
+//bool compare_texts (const char* text1, const char* text2, size_t index = 0){
+//    if (text1[index] == '\0' && text2[index] == '\0') return true;
+//    if (text1[index] != text2[index]) return false;
+//    return compare_texts(text1, text2, index+1);
+//}
 
 constexpr bool compare_texts (const char* text1, const char* text2, size_t index = 0){
     if (text1[index] == '\0' && text2[index] == '\0') return true;
